@@ -1,1 +1,70 @@
-----HTML---
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Factory Method Website</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    #content { margin-top: 20px; padding: 20px; border: 1px solid #ccc; border-radius: 8px; }
+    button { margin: 5px; padding: 10px 20px; }
+  </style>
+</head>
+<body>
+
+  <h1>Factory Method Example (Website Pages)</h1>
+  
+  <button onclick="loadPage('login')">Login Page</button>
+  <button onclick="loadPage('menu')">Menu Page</button>
+  <button onclick="loadPage('checkout')">Checkout Page</button>
+
+  <div id="content">Click a button to load a page...</div>
+
+  <script>
+    // "Products" - page templates
+    function LoginPage() {
+      return `
+        <h2>Login Page</h2>
+        <form>
+          <label>Username: <input type="text"></label><br><br>
+          <label>Password: <input type="password"></label><br><br>
+          <button type="submit">Login</button>
+        </form>
+      `;
+    }
+
+    function MenuPage() {
+      return `
+        <h2>Menu Page</h2>
+        <ul>
+          <li>Pizza - $10</li>
+          <li>Burger - $5</li>
+          <li>Pasta - $7</li>
+        </ul>
+      `;
+    }
+
+    function CheckoutPage() {
+      return `
+        <h2>Checkout Page</h2>
+        <p>Your cart items will appear here.</p>
+        <button>Proceed to Pay</button>
+      `;
+    }
+
+    // Factory Method
+    function PageFactory(pageType) {
+      switch(pageType) {
+        case 'login': return LoginPage();
+        case 'menu': return MenuPage();
+        case 'checkout': return CheckoutPage();
+        default: return `<p>Page not found!</p>`;
+      }
+    }
+
+    // Load page into #content
+    function loadPage(type) {
+      document.getElementById('content').innerHTML = PageFactory(type);
+    }
+  </script>
+
+</body>
+</html>
