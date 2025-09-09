@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Factory Method Website</title>
+  <title>Factory Method Routing Example</title>
   <style>
     body { font-family: Arial, sans-serif; padding: 20px; }
+    nav a { margin: 0 10px; text-decoration: none; color: blue; }
     #content { margin-top: 20px; padding: 20px; border: 1px solid #ccc; border-radius: 8px; }
-    button { margin: 5px; padding: 10px 20px; }
   </style>
 </head>
 <body>
 
-  <h1>Factory Method Example (Website Pages)</h1>
+  <h1>Factory Method Website</h1>
   
-  <button onclick="loadPage('login')">Login Page</button>
-  <button onclick="loadPage('menu')">Menu Page</button>
-  <button onclick="loadPage('checkout')">Checkout Page</button>
+  <!-- Navigation -->
+  <nav>
+    <a href="#login">Login</a>
+    <a href="#menu">Menu</a>
+    <a href="#checkout">Checkout</a>
+  </nav>
 
-  <div id="content">Click a button to load a page...</div>
+  <div id="content">Welcome! Use the menu above to navigate.</div>
 
   <script>
     // "Products" - page templates
@@ -56,14 +59,22 @@
         case 'login': return LoginPage();
         case 'menu': return MenuPage();
         case 'checkout': return CheckoutPage();
-        default: return `<p>Page not found!</p>`;
+        default: return `<h2>404 - Page not found</h2>`;
       }
     }
 
-    // Load page into #content
-    function loadPage(type) {
-      document.getElementById('content').innerHTML = PageFactory(type);
+    // Router function
+    function router() {
+      const hash = window.location.hash.substring(1); // remove '#'
+      const page = PageFactory(hash);
+      document.getElementById('content').innerHTML = page;
     }
+
+    // Listen for hash changes (navigation)
+    window.addEventListener("hashchange", router);
+
+    // Load initial page (if any)
+    window.addEventListener("load", router);
   </script>
 
 </body>
